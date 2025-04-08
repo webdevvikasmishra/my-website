@@ -9,8 +9,11 @@
   <style>
     :root {
       --primary-color: #007bff;
-      --dark-color: #1c1c1c;
-      --light-color: #f8f9fa;
+      --dark-color: #121212;
+      --light-color: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --blur: blur(10px);
+      --border-radius: 20px;
     }
 
     * {
@@ -19,17 +22,54 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--light-color);
-      color: #333;
-      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #f8f9fa;
+      transition: background 0.3s ease;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur);
+      z-index: 999;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
     }
 
     header {
       height: 100vh;
-      background: linear-gradient(to right, #1f1c2c, #928dab);
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -63,23 +103,24 @@
     }
 
     section {
-      padding: 80px 20px;
-      max-width: 1000px;
+      padding: 100px 20px;
+      max-width: 1100px;
       margin: auto;
     }
 
     section h2 {
       font-size: 2.5rem;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       text-align: center;
-      color: var(--dark-color);
     }
 
-    .about, .contact {
-      background-color: white;
-      border-radius: 15px;
+    .about, .contact, .project-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur);
       padding: 40px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      color: white;
     }
 
     .skills-grid {
@@ -92,31 +133,23 @@
 
     .skills-grid li {
       list-style: none;
-      background-color: #e3f2fd;
+      background-color: rgba(0, 123, 255, 0.1);
       padding: 12px 24px;
       border-radius: 25px;
       font-weight: 500;
-      color: #0d47a1;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .skills-grid li:hover {
+      transform: scale(1.05);
     }
 
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
-      margin-top: 30px;
-    }
-
-    .project-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
     }
 
     .project-card h3 {
@@ -125,25 +158,23 @@
     }
 
     footer {
-      background-color: #1f1c2c;
-      color: white;
+      background-color: #0e0e0e;
       text-align: center;
       padding: 20px;
       font-size: 0.9rem;
     }
 
-    a {
-      color: var(--primary-color);
-      text-decoration: none;
-    }
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
 
-    a:hover {
-      text-decoration: underline;
-    }
+      nav .logo {
+        font-size: 1.2rem;
+      }
 
-    @media (max-width: 600px) {
       header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
 
       section h2 {
@@ -153,6 +184,16 @@
   </style>
 </head>
 <body>
+
+  <nav>
+    <div class="logo">Vikas Mishra</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
   <header>
     <div>
@@ -165,9 +206,7 @@
   <section id="about">
     <div class="about">
       <h2>About Me</h2>
-      <p>
-        I'm a passionate .NET Developer experienced in building scalable applications using ASP.NET Core, Web API, and Angular. I specialize in full-stack development and love solving complex problems with clean, efficient code.
-      </p>
+      <p>I'm a passionate .NET Developer experienced in building scalable applications using ASP.NET Core, Web API, and Angular. I specialize in full-stack development and love solving complex problems with clean, efficient code.</p>
     </div>
   </section>
 
@@ -210,7 +249,7 @@
       <h2>Contact Me</h2>
       <p>Want to collaborate or hire me? Get in touch!</p>
       <p><i class="fas fa-envelope"></i> <a href="mailto:devvikasmishra@gamil.com">devvikasmishra@gamil.com</a></p>
-      <p><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/vikas-mishra" target="_blank">linkedin.com/in/vikas-mishra</a></p>
+      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/vikasbits/" target="_blank">linkedin.com/in/vikasbits</a></p>
     </div>
   </section>
 
