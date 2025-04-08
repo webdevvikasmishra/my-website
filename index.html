@@ -265,7 +265,17 @@
   <section id="about" class="hidden-section">
     <div class="about">
       <h2>About Me</h2>
-      <p>I'm a passionate .NET Developer experienced in building scalable applications using ASP.NET Core, Web API, and Angular. I specialize in full-stack development and love solving complex problems with clean, efficient code.</p>
+      <p>Hello! I'm <strong>Vikas Mishra</strong>, a dedicated and detail-oriented <strong>.NET Developer</strong> with a passion for crafting scalable and efficient software solutions.</p>
+      <p>I specialize in building full-stack applications using <strong>ASP.NET Core</strong>, <strong>Web API</strong>, and <strong>Angular</strong>, with a strong focus on clean architecture and optimized performance.</p>
+      <br/>
+      <h3>Qualification</h3>
+      <ul>
+        <li>B.Tech in Computer Science and Engineering</li>
+        <li>Polytechnic Diploma in Computer Science</li>
+      </ul>
+      <br/>
+      <h3>Experience</h3>
+      <p>I bring over <strong>2 years of professional experience</strong> in software development, delivering robust, maintainable, and user-friendly applications across various industries.</p>
     </div>
   </section>
 
@@ -302,6 +312,14 @@
         <h3>Customer Dashboard</h3>
         <p>Dynamic UI with reusable grids powered by Angular and API services.</p>
       </div>
+      <div class="project-card">
+        <h3>Landing Zone</h3>
+        <p>Designed and deployed a secure and scalable cloud infrastructure Landing Zone in Azure, enabling efficient onboarding of cloud workloads.</p>
+      </div>
+      <div class="project-card">
+        <h3>Cloud Pilot</h3>
+        <p>Developed tools and dashboards to assess cloud readiness and migration strategies, helping teams adopt cloud-native approaches efficiently.</p>
+      </div>
     </div>
   </section>
 
@@ -323,7 +341,6 @@
       document.getElementById('nav-links').classList.toggle('active');
     }
 
-    // CLOSE MENU ON LINK CLICK (Mobile)
     document.querySelectorAll('#nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         const nav = document.getElementById('nav-links');
@@ -345,7 +362,6 @@
       }
     }
 
-    // Animate on scroll
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
