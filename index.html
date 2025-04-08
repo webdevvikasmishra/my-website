@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,13 +8,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
+      --primary-color: #0077ff;
+      --accent-color: #e100ff;
+      --bg-color: #f4f6fa;
+      --text-color: #0f0f0f;
+      --glass-bg: rgba(255, 255, 255, 0.4);
+      --blur: blur(10px);
+      --border-radius: 20px;
+    }
+
+    [data-theme="dark"] {
       --primary-color: #00d4ff;
       --accent-color: #9b00e8;
-      --dark-color: #0f0f0f;
-      --light-color: #ffffff;
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
       --glass-bg: rgba(255, 255, 255, 0.08);
-      --blur: blur(14px);
-      --border-radius: 20px;
     }
 
     * {
@@ -23,15 +31,11 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #f1f1f1;
-      overflow-x: hidden;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
     }
 
     nav {
@@ -44,11 +48,9 @@
       background: var(--glass-bg);
       backdrop-filter: var(--blur);
       z-index: 999;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      animation: fadeInDown 1s ease-out;
     }
 
-    nav .logo {
+    .logo {
       font-size: 1.8rem;
       font-weight: bold;
       background: linear-gradient(to right, var(--primary-color), var(--accent-color));
@@ -56,21 +58,34 @@
       -webkit-text-fill-color: transparent;
     }
 
+    .menu-icon {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 25px;
+      align-items: center;
     }
 
     nav ul li a {
       text-decoration: none;
-      color: white;
+      color: var(--text-color);
       font-weight: 500;
       transition: 0.3s;
     }
 
     nav ul li a:hover {
       color: var(--primary-color);
+    }
+
+    .theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
     }
 
     header {
@@ -80,20 +95,29 @@
       justify-content: center;
       text-align: center;
       padding: 0 20px;
-      background: radial-gradient(circle at center, #1d1d1d 0%, #111 100%);
-      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    header > div {
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: headerSlide 1.2s ease-out 0.3s forwards;
+    }
+
+    @keyframes headerSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     header h1 {
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       margin-bottom: 10px;
-      animation: textGlow 3s ease-in-out infinite alternate;
     }
 
     header p {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 30px;
-      color: #cfd8dc;
     }
 
     .btn {
@@ -105,11 +129,17 @@
       font-size: 1rem;
       text-decoration: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
     .btn:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     section {
@@ -119,7 +149,7 @@
     }
 
     section h2 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       margin-bottom: 30px;
       text-align: center;
       background: linear-gradient(to right, var(--primary-color), var(--accent-color));
@@ -132,9 +162,7 @@
       backdrop-filter: var(--blur);
       padding: 40px;
       border-radius: var(--border-radius);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      color: white;
-      animation: fadeInUp 1s ease forwards;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
 
     .skills-grid {
@@ -151,14 +179,8 @@
       padding: 12px 24px;
       border-radius: 25px;
       font-weight: 500;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .skills-grid li:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.5);
+      color: var(--text-color);
+      border: 1px solid rgba(0,0,0,0.1);
     }
 
     .projects-grid {
@@ -167,17 +189,21 @@
       gap: 25px;
     }
 
-    .project-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 10px;
+    .project-card {
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: perspective(800px) rotateX(5deg) rotateY(3deg) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
 
     footer {
-      background-color: #0e0e0e;
+      background-color: rgba(0, 0, 0, 0.05);
       text-align: center;
       padding: 20px;
       font-size: 0.9rem;
-      color: #bbb;
+      color: var(--text-color);
     }
 
     a {
@@ -190,41 +216,41 @@
     }
 
     @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
       nav ul {
         display: none;
+        flex-direction: column;
+        background: var(--glass-bg);
+        position: absolute;
+        top: 70px;
+        right: 40px;
+        width: 220px;
+        border-radius: 10px;
+        padding: 20px;
       }
 
-      nav .logo {
-        font-size: 1.4rem;
+      nav ul.active {
+        display: flex;
       }
 
-      header h1 {
-        font-size: 2.5rem;
-      }
-
-      section h2 {
-        font-size: 2rem;
+      nav ul li {
+        margin: 10px 0;
       }
     }
 
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .hidden-section {
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      transition: all 0.8s ease-out;
+      will-change: opacity, transform;
     }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--accent-color); }
-      100% { text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--primary-color); }
+    .show-section {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   </style>
 </head>
@@ -232,12 +258,14 @@
 
   <nav>
     <div class="logo">Vikas Mishra</div>
-    <ul>
+    <ul id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><div class="theme-toggle" onclick="toggleTheme()" id="themeIcon" title="Toggle theme">🌙</div></li>
     </ul>
+    <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </nav>
 
   <header>
@@ -248,14 +276,14 @@
     </div>
   </header>
 
-  <section id="about">
+  <section id="about" class="hidden-section">
     <div class="about">
       <h2>About Me</h2>
       <p>I'm a passionate .NET Developer experienced in building scalable applications using ASP.NET Core, Web API, and Angular. I specialize in full-stack development and love solving complex problems with clean, efficient code.</p>
     </div>
   </section>
 
-  <section id="skills">
+  <section id="skills" class="hidden-section">
     <h2>Skills</h2>
     <ul class="skills-grid">
       <li>.NET Core</li>
@@ -273,25 +301,25 @@
     </ul>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="hidden-section">
     <h2>Projects</h2>
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card hidden-section">
         <h3>Time Tracker App</h3>
         <p>A time logging app with Angular frontend and .NET Core backend.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card hidden-section">
         <h3>Gym Management</h3>
         <p>Full-stack gym system using Angular Material & ASP.NET Web API.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card hidden-section">
         <h3>Customer Dashboard</h3>
         <p>Dynamic UI with reusable grids powered by Angular and API services.</p>
       </div>
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="hidden-section">
     <div class="contact">
       <h2>Contact Me</h2>
       <p>Want to collaborate or hire me? Get in touch!</p>
@@ -304,5 +332,33 @@
     <p>&copy; 2025 Vikas Mishra. All rights reserved.</p>
   </footer>
 
+  <script>
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('active');
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById("themeIcon");
+      if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = "🌞";
+      } else {
+        html.setAttribute('data-theme', 'light');
+        icon.textContent = "🌙";
+      }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-section');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.hidden-section').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
