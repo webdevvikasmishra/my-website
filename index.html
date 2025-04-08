@@ -8,11 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #007bff;
-      --dark-color: #121212;
+      --primary-color: #00d4ff;
+      --accent-color: #9b00e8;
+      --dark-color: #0f0f0f;
       --light-color: #ffffff;
-      --glass-bg: rgba(255, 255, 255, 0.1);
-      --blur: blur(10px);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --blur: blur(14px);
       --border-radius: 20px;
     }
 
@@ -28,9 +29,9 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      color: #f8f9fa;
-      transition: background 0.3s ease;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f1f1f1;
+      overflow-x: hidden;
     }
 
     nav {
@@ -43,12 +44,16 @@
       background: var(--glass-bg);
       backdrop-filter: var(--blur);
       z-index: 999;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      animation: fadeInDown 1s ease-out;
     }
 
     nav .logo {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: bold;
-      color: white;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     nav ul {
@@ -61,7 +66,7 @@
       text-decoration: none;
       color: white;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: 0.3s;
     }
 
     nav ul li a:hover {
@@ -75,31 +80,36 @@
       justify-content: center;
       text-align: center;
       padding: 0 20px;
+      background: radial-gradient(circle at center, #1d1d1d 0%, #111 100%);
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     header h1 {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       margin-bottom: 10px;
+      animation: textGlow 3s ease-in-out infinite alternate;
     }
 
     header p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 30px;
+      color: #cfd8dc;
     }
 
     .btn {
       padding: 12px 30px;
-      background-color: var(--primary-color);
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
       color: white;
       border: none;
       border-radius: 30px;
       font-size: 1rem;
       text-decoration: none;
-      transition: 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .btn:hover {
-      background-color: #0056b3;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
     }
 
     section {
@@ -109,9 +119,12 @@
     }
 
     section h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 30px;
       text-align: center;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .about, .contact, .project-card {
@@ -119,8 +132,9 @@
       backdrop-filter: var(--blur);
       padding: 40px;
       border-radius: var(--border-radius);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       color: white;
+      animation: fadeInUp 1s ease forwards;
     }
 
     .skills-grid {
@@ -133,17 +147,18 @@
 
     .skills-grid li {
       list-style: none;
-      background-color: rgba(0, 123, 255, 0.1);
+      background: linear-gradient(45deg, rgba(0,212,255,0.2), rgba(155,0,232,0.2));
       padding: 12px 24px;
       border-radius: 25px;
       font-weight: 500;
       color: #fff;
       border: 1px solid rgba(255,255,255,0.2);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .skills-grid li:hover {
-      transform: scale(1.05);
+      transform: translateY(-6px);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.5);
     }
 
     .projects-grid {
@@ -162,6 +177,16 @@
       text-align: center;
       padding: 20px;
       font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -170,16 +195,36 @@
       }
 
       nav .logo {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
       }
 
       header h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
       }
 
       section h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--accent-color); }
+      100% { text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--primary-color); }
     }
   </style>
 </head>
@@ -223,6 +268,8 @@
       <li>REST APIs</li>
       <li>Git & GitHub</li>
       <li>Visual Studio</li>
+      <li>Unit Test</li>
+      <li>ADO.NET</li>
     </ul>
   </section>
 
@@ -248,7 +295,7 @@
     <div class="contact">
       <h2>Contact Me</h2>
       <p>Want to collaborate or hire me? Get in touch!</p>
-      <p><i class="fas fa-envelope"></i> <a href="mailto:devvikasmishra@gamil.com">devvikasmishra@gamil.com</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:devvikasmishra@gmail.com">devvikasmishra@gmail.com</a></p>
       <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/vikasbits/" target="_blank">linkedin.com/in/vikasbits</a></p>
     </div>
   </section>
